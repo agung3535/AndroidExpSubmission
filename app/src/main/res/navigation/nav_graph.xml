@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/movie_graph_feature">
+
+    <include-dynamic
+        android:id="@id/movie_graph_feature"
+        android:name="com.example.moviesubmissionandroidexp.movie"
+        app:moduleName="movie"
+        app:graphResName="movie_graph"/>
+
+<!--    <include-dynamic-->
+<!--        android:id="@id/favoritemovie_graph_feature"-->
+<!--        android:name="com.tuyp.simplecataloguemovie.favoritemovie"-->
+<!--        app:moduleName="favoritemovie"-->
+<!--        app:graphResName="favoritemovie_graph"/>-->
+
+    <!--    <include app:graph ="@navigation/movie_graph" />-->
+    <!--    <include app:graph ="@navigation/favoritemovie_graph"/>-->
+    <!--    <fragment android:id="@+id/placeholder" />-->
+
+</navigation>

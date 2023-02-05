@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_view"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.DetailMovieFragment">
+
+    <ScrollView
+        android:id="@+id/detailContent"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:paddingBottom="@dimen/_10sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="@dimen/_10sdp">
+
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/imageMovie"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_200sdp"
+                android:background="@color/black"
+                app:shapeAppearance="@style/CustomImageMovieDetail"
+                android:scaleType="fitXY"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginHorizontal="-100dp"
+                android:paddingHorizontal="-100dp"
+                android:src="@drawable/ic_baseline_image_24"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+
+            <TextView
+                android:id="@+id/titleMovie"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Spiderman a;sldkas;ldkals;dkas;ldkas;ldkas;ldkasl;daksdl;kasld;aksld;ask;dlask"
+                android:textSize="@dimen/_18ssp"
+                android:textStyle="bold"
+                android:maxLines="2"
+                android:paddingLeft="@dimen/_10sdp"
+                android:paddingRight="@dimen/_80sdp"
+                android:paddingTop="@dimen/_10sdp"
+                android:textColor="@color/text_color_title"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/imageMovie"
+                app:layout_constraintEnd_toStartOf="@id/favBtn"
+                app:layout_constraintHorizontal_bias="0"/>
+            <ImageButton
+                android:id="@+id/favBtn"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:scaleType="fitXY"
+                android:padding="@dimen/_5sdp"
+                app:layout_constraintTop_toBottomOf="@id/imageMovie"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:background="#00FFFFFF"
+                app:layout_constraintBottom_toTopOf="@id/textGenre"
+                android:src="@drawable/ic_baseline_favorite_border_24"/>
+
+            <ImageButton
+                android:id="@+id/unFavBtn"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:scaleType="fitXY"
+                android:padding="@dimen/_5sdp"
+                app:layout_constraintTop_toBottomOf="@id/imageMovie"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:background="#00FFFFFF"
+                android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="@id/textGenre"
+                android:src="@drawable/ic_baseline_favorite_24"/>
+
+            <TextView
+                android:id="@+id/textGenre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/titleMovie"
+                android:paddingHorizontal="@dimen/_10sdp"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/_12ssp"
+                android:textStyle="bold"
+                android:text="action, drama, comedy"/>
+
+            <TextView
+                android:id="@+id/textLanguage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/_10sdp"
+                android:textSize="@dimen/_12ssp"
+                android:textStyle="bold"
+                android:paddingBottom="@dimen/_5sdp"
+                android:paddingTop="@dimen/_10sdp"
+                android:textColor="@color/text_color"
+                app:layout_constraintTop_toBottomOf="@id/textGenre"
+                android:text="English"/>
+
+            <TextView
+                android:id="@+id/textOverviewTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/textLanguage"
+                android:text="Synopsis"
+                android:textColor="@color/text_color_title"
+                android:background="@color/backgorund_text"
+                android:textSize="@dimen/_16ssp"
+                android:textStyle="bold"
+                android:padding="@dimen/_10sdp"/>
+
+            <TextView
+                android:id="@+id/textOverview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/textOverviewTitle"
+                android:text="is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+                android:background="@color/backgorund_text"
+                android:textColor="@color/text_color"
+                android:paddingHorizontal="@dimen/_10sdp"
+                android:paddingBottom="@dimen/_10sdp"
+                android:textSize="@dimen/_12ssp" />
+
+            <TextView
+                android:id="@+id/textCast"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_10sdp"
+                android:text="Cast"
+                android:textColor="@color/text_color_title"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@id/textOverview"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recCast"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_10sdp"
+                app:layout_constraintTop_toBottomOf="@id/textCast"/>
+            <ProgressBar
+                android:id="@+id/progressCast"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/recCast"
+                app:layout_constraintTop_toBottomOf="@id/textCast"/>
+
+            <include
+                android:id="@+id/emptyCast"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                layout="@layout/empty_view"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/recCast"
+                app:layout_constraintTop_toBottomOf="@id/textCast"/>
+
+            <TextView
+                android:id="@+id/titleReview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_10sdp"
+                android:text="Movie Review"
+                android:textColor="@color/text_color_title"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@id/recCast"/>
+
+            <ProgressBar
+                android:id="@+id/progressReview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/recReview"
+                app:layout_constraintTop_toBottomOf="@id/titleReview"/>
+
+            <include
+                android:id="@+id/emptyViewReview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                layout="@layout/empty_view"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/recReview"
+                app:layout_constraintTop_toBottomOf="@id/titleReview"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recReview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_10sdp"
+                app:layout_constraintTop_toBottomOf="@id/titleReview"/>
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <!--    <Button-->
+    <!--        android:id="@+id/btnAddReview"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="@dimen/_50sdp"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        android:text="Add Favorite"-->
+    <!--        android:padding="@dimen/_10sdp"/>-->
+</androidx.constraintlayout.widget.ConstraintLayout>
