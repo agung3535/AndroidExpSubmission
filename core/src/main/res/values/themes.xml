@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="CustomImageMovieDetail">
+        <item name="cornerSizeBottomLeft">100%</item>
+        <item name="cornerSizeBottomRight">100%</item>
+        <item name="cornerFamilyBottomRight">rounded</item>
+    </style>
+
+    <style name="CustomRoundedImage">
+        <item name="cornerSize">@dimen/_10sdp</item>
+    </style>
+
+    <style name="CircleImageView">
+        <item name="cornerSize">50%</item>
+        <item name="strokeWidth">5dp</item>
+        <item name="strokeColor">#050505</item>
+    </style>
+</resources>
