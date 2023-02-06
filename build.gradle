@@ -32,7 +32,7 @@ ext {
     glide_version = '4.11.0'
     material_version = "1.8.0-alpha03"
 
-    room_version = "2.4.3"
+    room_version = '2.5.0'
 
     retrofit_version = "2.9.0"
     logging_interceptor_version = '4.9.0'
