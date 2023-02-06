@@ -32,11 +32,9 @@ class FavListCategoryBottomAdapter(val itemClick: (FavoritListCategoryModel) -> 
 
             }
             holder.binding.txtCategory.setOnCheckedChangeListener { compoundButton, b ->
-                Log.d("dataaa","adapter klik")
                 itemClick(data)
                 if (b) {
                     holder.binding.txtCategory.isChecked = b
-                    notifyDataSetChanged()
                 }
             }
 
@@ -53,16 +51,7 @@ class FavListCategoryBottomAdapter(val itemClick: (FavoritListCategoryModel) -> 
             }
         }
 
-        fun updateSelected(position: Int) {
-            binding.apply {
-                txtCategory.setOnCheckedChangeListener { compoundButton, b ->
-                    if (b) {
-                        selectedPosition = position
-                        notifyDataSetChanged()
-                    }
-                }
-            }
-        }
+
     }
 
     companion object {
