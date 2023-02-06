@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@id/favoritemovie_graph_feature"
+    app:startDestination="@id/favoriteFragment">
+
+    <fragment
+        android:id="@+id/favoriteFragment"
+        android:name="com.example.moviesubmissionandroidexp.favorite.ui.FavoriteFragment"
+        android:label="fragment_favorite"
+        tools:layout="@layout/fragment_favorite" >
+        <action
+            android:id="@+id/action_favoriteFragment_to_listFavoriteFragment"
+            app:destination="@id/listFavoriteFragment" />
+        <action
+            android:id="@+id/action_favoriteFragment_to_detailFavoriteFragment"
+            app:destination="@id/detailFavoriteFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/listFavoriteFragment"
+        android:name="com.example.moviesubmissionandroidexp.favorite.ui.ListFavoriteFragment"
+        android:label="fragment_list_favorite"
+        tools:layout="@layout/fragment_list_favorite" >
+        <argument
+            android:name="categoryTitle"
+            app:argType="string" />
+        <argument
+            android:name="category_id"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_listFavoriteFragment_to_detailFavoriteFragment3"
+            app:destination="@id/detailFavoriteFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailFavoriteFragment"
+        android:name="com.example.moviesubmissionandroidexp.favorite.ui.DetailFavoriteFragment"
+        android:label="fragment_detail_favorite"
+        tools:layout="@layout/fragment_detail_favorite" >
+        <argument
+            android:name="movie_id"
+            app:argType="integer" />
+    </fragment>
+</navigation>

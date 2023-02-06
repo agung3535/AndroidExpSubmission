@@ -16,3 +16,4 @@ rootProject.name = "MovieSubmissionAndroidExp"
 include ':app'
 include ':core'
 include ':movie'
+include ':favorite'

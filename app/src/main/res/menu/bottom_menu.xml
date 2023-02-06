@@ -5,8 +5,8 @@
         android:id="@+id/movie_graph_feature"
         />
 
-<!--    <item android:title="Favorite"-->
-<!--        android:icon="@drawable/ic_baseline_bookmark_24"-->
-<!--        android:id="@+id/favoritemovie_graph_feature"-->
-<!--        />-->
+    <item android:title="Favorite"
+        android:icon="@drawable/ic_baseline_bookmark_24"
+        android:id="@+id/favoritemovie_graph_feature"
+        />
 </menu>

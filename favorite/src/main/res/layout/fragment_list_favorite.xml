@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.ListFavoriteFragment">
+
+    <TextView
+        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/titleFavorite"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/text_color_title"
+        android:textSize="@dimen/_16ssp"
+        android:textStyle="bold"
+        android:padding="@dimen/_10sdp"
+        android:text="Ongoing"/>
+    <View
+        android:id="@+id/line1"
+        app:layout_constraintTop_toBottomOf="@id/titleFavorite"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_1sdp"
+        android:background="@color/text_color_title"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recFavorite"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/line1"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

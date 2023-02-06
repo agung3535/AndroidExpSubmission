@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/titleFavorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="List Category"
+        android:gravity="center"
+        android:textSize="@dimen/_16ssp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:padding="@dimen/_10sdp"/>
+    <View
+        android:id="@+id/hrView"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_1sdp"
+        app:layout_constraintTop_toBottomOf="@id/titleFavorite"
+        android:background="@color/black"
+        android:layout_marginHorizontal="@dimen/_10sdp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recCategory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/hrView"
+        app:layout_constraintBottom_toTopOf="@id/btnSave"/>
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnAddList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="create new list"
+        android:padding="@dimen/_10sdp"
+        android:background="#fff"
+        android:textColor="#2E6C30"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1"
+        app:layout_constraintStart_toEndOf="@id/titleFavorite"
+        app:layout_constraintBottom_toTopOf="@id/hrView"
+        app:layout_constraintTop_toTopOf="parent"/>
+    <Button
+        android:id="@+id/btnSave"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Save Favorite"
+        android:padding="@dimen/_10sdp"
+        app:layout_constraintTop_toBottomOf="@id/recCategory"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

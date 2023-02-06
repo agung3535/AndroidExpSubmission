@@ -10,11 +10,11 @@
         app:moduleName="movie"
         app:graphResName="movie_graph"/>
 
-<!--    <include-dynamic-->
-<!--        android:id="@id/favoritemovie_graph_feature"-->
-<!--        android:name="com.tuyp.simplecataloguemovie.favoritemovie"-->
-<!--        app:moduleName="favoritemovie"-->
-<!--        app:graphResName="favoritemovie_graph"/>-->
+    <include-dynamic
+        android:id="@id/favoritemovie_graph_feature"
+        android:name="com.tuyp.moviesubmissionandroidexp.favorite"
+        app:moduleName="favorite"
+        app:graphResName="favoritemovie_graph"/>
 
     <!--    <include app:graph ="@navigation/movie_graph" />-->
     <!--    <include app:graph ="@navigation/favoritemovie_graph"/>-->

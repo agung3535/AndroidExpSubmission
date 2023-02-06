@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_120sdp"
+    android:padding="@dimen/_10sdp"
+    app:cardCornerRadius="@dimen/_10sdp"
+    android:layout_margin="@dimen/_10sdp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/reviewImage"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_50sdp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:padding="@dimen/_10sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:scaleType="center"
+            app:strokeColor="@color/teal_200"
+            app:strokeWidth="@dimen/_1sdp"
+            app:shapeAppearance="@style/CircleImageView"
+            android:src="@drawable/ic_baseline_favorite_border_24"/>
+
+        <TextView
+            android:id="@+id/reviewName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/reviewImage"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textSize="@dimen/_14ssp"
+            android:textStyle="bold"
+            android:text="Agung Dwi Saputra"/>
+
+        <ImageView
+            android:id="@+id/starRate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/reviewName"
+            app:layout_constraintStart_toEndOf="@id/reviewImage"
+            app:layout_constraintVertical_bias="0"
+            android:src="@drawable/ic_baseline_star_rate_24"/>
+
+        <TextView
+            android:id="@+id/voteRate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/starRate"
+            app:layout_constraintTop_toBottomOf="@id/reviewName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintVertical_bias="0"
+            app:layout_constraintBottom_toTopOf="@id/reviewText"
+            android:text="8.0"/>
+
+        <TextView
+            android:id="@+id/reviewText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/reviewImage"
+            app:layout_constraintTop_toBottomOf="@id/starRate"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintVertical_bias="0"
+            android:ellipsize="end"
+            android:maxLines="5"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:paddingBottom="@dimen/_10sdp"
+            android:paddingEnd="@dimen/_10sdp"
+            android:text="Typically, images are displayed using the built-in image view. This view takes care of the loading and optimizing of the image, freeing you to focus on app-specific details like the layout and content.
+
+In this guide, we will take a look at how to use an ImageView, how to manipulate bitmaps, learn about the different density folders and more."/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</androidx.cardview.widget.CardView>
