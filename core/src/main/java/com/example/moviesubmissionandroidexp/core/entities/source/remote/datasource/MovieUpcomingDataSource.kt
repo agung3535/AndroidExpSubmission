@@ -1,5 +1,6 @@
 package com.example.moviesubmissionandroidexp.core.entities.source.remote.datasource
 
+import com.example.moviesubmissionandroidexp.core.BuildConfig
 import com.example.moviesubmissionandroidexp.core.entities.source.remote.network.ApiResponse
 import com.example.moviesubmissionandroidexp.core.entities.source.remote.network.ApiService
 import com.example.moviesubmissionandroidexp.core.entities.source.remote.response.MovieResource
@@ -14,7 +15,7 @@ import javax.inject.Singleton
 @Singleton
 class MovieUpcomingDataSource @Inject constructor(private val apiService: ApiService): IMovieUpcomingDataSource {
 
-    private val apiKeys = ApiKeysSource.apiKeys(1)
+    private val apiKeys = BuildConfig.TheMovieDBApi
 
     override fun getUpcomingMovie(): Flow<ApiResponse<List<MovieResource>>> {
         return flow {
