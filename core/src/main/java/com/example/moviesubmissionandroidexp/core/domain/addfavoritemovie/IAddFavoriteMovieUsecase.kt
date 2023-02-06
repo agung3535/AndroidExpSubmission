@@ -13,4 +13,6 @@ interface IAddFavoriteMovieUsecase {
     fun addReviewFavoriteMovie(data: List<ReviewDomainModel>, fkId: Int): Flow<List<Long>>
     fun deleteFavorite(data: List<FavoriteMovieModel>): Flow<Int>
     fun deleteCategoryFavorite(data: FavoritListCategoryModel): Flow<Int>
+    fun addTempDelete(data: FavoriteMovieModel): Flow<Int>
+
 }

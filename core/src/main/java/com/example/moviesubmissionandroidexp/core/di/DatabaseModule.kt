@@ -50,6 +50,16 @@ class DatabaseModule {
         }
     }
 
+    val MIGRATION_3_4: Migration = object : Migration(3,4) {
+        override fun migrate(database: SupportSQLiteDatabase) {
+            database.execSQL("CREATE TABLE `temp_delete_movie_fav` (`fav_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
+                    "`title` TEXT NOT NULL,`backdrop_path` TEXT NOT NULL, `overview` TEXT NOT NULL," +
+                    "`popularity` REAL NOT NULL,`vote_average` REAL NOT NULL,`original_language` TEXT NOT NULL," +
+                    "`fav_category_id` INTEGER NOT NULL, `movie_id` INTEGER NOT NULL)")
+        }
+
+    }
+
 //    val MIGRATION_3_4: Migration = object : Migration(3,4) {
 //        override fun migrate(database: SupportSQLiteDatabase) {
 //            database.execSQL("CREATE TABLE `cast_movie` (`castId` INTEGER PRIMARY KEY NOT NULL, `name` TEXT NOT NULL," +
@@ -67,7 +77,7 @@ class DatabaseModule {
     @Singleton
     @Provides
     fun provideDatabase(@ApplicationContext context: Context): MovieDatabase = Room.databaseBuilder(context, MovieDatabase::class.java,"movie.db")
-        .addMigrations(MIGRATION_2_3)
+        .addMigrations(MIGRATION_3_4)
         .build()
 
 

@@ -47,7 +47,7 @@ class FavoriteFragment : Fragment() {
     }
 
     private var _binding: FragmentFavoriteBinding? = null
-    private val binding get() = _binding!!
+    private val binding get() = _binding
     private lateinit var favoriteAdapter: FavListCategoryAdapter
 
     override fun onCreateView(
@@ -64,7 +64,7 @@ class FavoriteFragment : Fragment() {
             ).build()
             .inject(this)
         _binding = FragmentFavoriteBinding.inflate(layoutInflater, container, false)
-        return binding.root
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -108,7 +108,7 @@ class FavoriteFragment : Fragment() {
         favoriteAdapter = FavListCategoryAdapter { data ->
             findNavController().navigate(FavoriteFragmentDirections.actionFavoriteFragmentToListFavoriteFragment(data.favCategory.categoryName,data.favCategory.favCategoryMovieId))
         }
-        binding.apply {
+        binding?.apply {
             recFavoriteList.layoutManager = LinearLayoutManager(requireContext(),
                 LinearLayoutManager.VERTICAL,false)
             recFavoriteList.adapter = favoriteAdapter
@@ -135,11 +135,11 @@ class FavoriteFragment : Fragment() {
 
     private fun setEmpty(isEmpty: Boolean) {
         if (isEmpty) {
-            binding.recFavoriteList.visibility = View.GONE
-            binding.emptyView.root.visibility = View.VISIBLE
+            binding?.recFavoriteList?.visibility = View.GONE
+            binding?.emptyView?.root?.visibility = View.VISIBLE
         }else {
-            binding.recFavoriteList.visibility = View.VISIBLE
-            binding.emptyView.root.visibility = View.GONE
+            binding?.recFavoriteList?.visibility = View.VISIBLE
+            binding?.emptyView?.root?.visibility = View.GONE
         }
     }
 
@@ -154,15 +154,15 @@ class FavoriteFragment : Fragment() {
 
     private fun showPrograss(show: Boolean){
         if(show) {
-            binding.progressBar.visibility = View.VISIBLE
+            binding?.progressBar?.visibility = View.VISIBLE
         }else {
-            binding.progressBar.visibility = View.GONE
+            binding?.progressBar?.visibility = View.GONE
         }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        binding.recFavoriteList.adapter = null
+        binding?.recFavoriteList?.adapter = null
         _binding = null
     }
 

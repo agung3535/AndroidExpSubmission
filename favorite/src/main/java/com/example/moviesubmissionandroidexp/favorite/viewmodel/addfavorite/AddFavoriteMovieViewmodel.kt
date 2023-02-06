@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class AddFavoriteMovieViewmodel(
-    private val addFavoriteMovieUsecase: IAddFavoriteMovieUsecase
+    private val addFavoriteMovieUsecase: IAddFavoriteMovieUsecase,
 ): ViewModel() {
 
     val resultAddCategory: MutableStateFlow<Long?> = MutableStateFlow(null)
@@ -63,9 +63,16 @@ class AddFavoriteMovieViewmodel(
     }
 
     fun deleteFavMovie(data: List<FavoriteMovieModel>) = viewModelScope.launch {
+        Log.d("dataaa","deleted vm = $data")
         addFavoriteMovieUsecase.deleteFavorite(data).collect {
             Log.d("dataaa","delete movie result = ${it}")
             resultDelete.value = it
+        }
+    }
+
+    fun addTempDelete(data: FavoriteMovieModel) = viewModelScope.launch {
+        addFavoriteMovieUsecase.addTempDelete(data).collect {
+
         }
     }
 
