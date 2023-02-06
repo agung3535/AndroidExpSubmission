@@ -7,6 +7,7 @@ import com.example.moviesubmissionandroidexp.core.entities.source.local.entity.F
 import com.example.moviesubmissionandroidexp.core.entities.source.local.entity.MovieEntity
 import com.example.moviesubmissionandroidexp.core.entities.source.local.entity.OneToManyFavCategoryAndListMovieFavorite
 import com.example.moviesubmissionandroidexp.core.entities.source.local.entity.ReviewFavMovieEntity
+import com.example.moviesubmissionandroidexp.core.entities.source.local.entity.TempDeleteFav
 import com.example.moviesubmissionandroidexp.core.entities.source.local.entity.UpcomingMovieEntity
 import com.example.moviesubmissionandroidexp.core.entities.source.remote.response.AuthorDetails
 import com.example.moviesubmissionandroidexp.core.entities.source.remote.response.CastResource
@@ -78,6 +79,14 @@ object Mapper {
 
     fun FavoriteMovieModel.toEntity(): FavoriteMovieEntity {
         return FavoriteMovieEntity(favId, title, backdropPath, overview, popularity, voteAverage, originalLanguage, favCategoryMovieId, movieId = movieId)
+    }
+
+    fun FavoriteMovieModel.toTempEnt(): TempDeleteFav {
+        return TempDeleteFav(favId, title, backdropPath, overview, popularity, voteAverage, originalLanguage, favCategoryMovieId, movieId)
+    }
+
+    fun TempDeleteFav.toFavDomain(): FavoriteMovieModel {
+        return FavoriteMovieModel(favId, title, backdropPath, overview, popularity, voteAverage, originalLanguage, favCategoryMovieId, movieId)
     }
 
     fun FavoritListCategoryModel.toEntity(): FavoriteListCategoryEntity {

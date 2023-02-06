@@ -2,6 +2,7 @@ package com.example.moviesubmissionandroidexp.favorite.ui
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,9 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.moviesubmissionandroidexp.core.presentation.model.FavoriteMovieModel
+import com.example.moviesubmissionandroidexp.core.utils.Mapper.toFavDomain
+import com.example.moviesubmissionandroidexp.core.utils.Mapper.toTempEnt
 import com.example.moviesubmissionandroidexp.di.FavoriteModules
 import com.example.moviesubmissionandroidexp.favorite.R
 import com.example.moviesubmissionandroidexp.favorite.adapter.FavListFavMovieAdapter
@@ -19,6 +23,8 @@ import com.example.moviesubmissionandroidexp.favorite.factory.FavoriteVMFactory
 import com.example.moviesubmissionandroidexp.favorite.viewmodel.favoritelist.FavoriteListViewmodel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.EntryPointAccessors
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import com.example.moviesubmissionandroidexp.R as Rapp
@@ -58,34 +64,78 @@ class ListFavoriteFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        args = ListFavoriteFragmentArgs.fromBundle(requireArguments())
         favAdapter = FavListFavMovieAdapter() { data ->
 
-            val action = ListFavoriteFragmentDirections.actionListFavoriteFragmentToDetailFavoriteFragment3(data.movieId)
+            val action = ListFavoriteFragmentDirections.actionListFavoriteFragmentToDetailFavoriteFragment3(data.movieId,args.categoryTitle,args.categoryId)
 
             findNavController().navigate(action)
         }
 
-        args = ListFavoriteFragmentArgs.fromBundle(requireArguments())
+
         initUI()
+
+
+    }
+
+    override fun onResume() {
+        super.onResume()
         fetchData()
         observeData()
-        binding.titleFavorite.setOnClickListener {
-            val action = ListFavoriteFragmentDirections.actionListFavoriteFragmentToDetailFavoriteFragment3(1)
+    }
 
-            findNavController().navigate(action)
+    private fun setEmpty(isEmpty: Boolean) {
+        if (isEmpty) {
+            binding?.recFavorite?.visibility = View.GONE
+            binding?.emptyView?.root?.visibility = View.VISIBLE
+        }else {
+            binding?.recFavorite?.visibility = View.VISIBLE
+            binding?.emptyView?.root?.visibility = View.GONE
         }
     }
 
     private fun fetchData() {
-        favViewmodel.getFavoriteMovie(args.categoryId)
+        favViewmodel.getTempFav()
+        lifecycleScope.launch {
+            favViewmodel.tempDeleteFav.collectLatest {
+                val data = it
+                if (data != null) {
+                    if (data.isEmpty()) {
+                        favViewmodel.getFavoriteMovie(args.categoryId)
+                    }else {
+                        favViewmodel.deleteFavMovie(data)
+                        favViewmodel.deleteTempFav(data.first().toTempEnt())
+                        favViewmodel.cekFavorite(data.first().movieId)
+                    }
+                }else {
+                    favViewmodel.getFavoriteMovie(args.categoryId)
+                }
+            }
+        }
+
     }
 
     private fun observeData() {
         lifecycleScope.launch {
             favViewmodel.favoriteData.collect { collectData ->
-                favAdapter.submitList(collectData)
+                if (collectData?.isNotEmpty() == true) {
+                    setEmpty(false)
+                    favAdapter.submitList(collectData)
+                }else {
+                    setEmpty(true)
+                }
+
             }
         }
+
+        lifecycleScope.launch {
+            favViewmodel.isFavorite.collect { collectData ->
+                if (collectData == null){
+                    favViewmodel.getFavoriteMovie(args.categoryId)
+                }
+            }
+        }
+
     }
 
     private fun initUI() {

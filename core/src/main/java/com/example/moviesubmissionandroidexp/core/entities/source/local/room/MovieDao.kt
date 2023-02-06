@@ -14,6 +14,7 @@ import com.example.moviesubmissionandroidexp.core.entities.source.local.entity.F
 import com.example.moviesubmissionandroidexp.core.entities.source.local.entity.MovieEntity
 import com.example.moviesubmissionandroidexp.core.entities.source.local.entity.OneToManyFavCategoryAndListMovieFavorite
 import com.example.moviesubmissionandroidexp.core.entities.source.local.entity.ReviewFavMovieEntity
+import com.example.moviesubmissionandroidexp.core.entities.source.local.entity.TempDeleteFav
 import com.example.moviesubmissionandroidexp.core.entities.source.local.entity.UpcomingMovieEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -54,7 +55,7 @@ interface MovieDao {
     fun getCategoryList(): Flow<List<FavoriteListCategoryEntity>>
 
     @Query("SELECT * FROM favorite_movie WHERE fav_category_id = :categoryId ")
-    fun getFavoriteMovie(categoryId: Int): Flow<List<FavoriteMovieEntity>>
+    fun getFavoriteMovie(categoryId: Int): List<FavoriteMovieEntity>
 
     @Query("SELECT * FROM favorite_movie WHERE movie_id = :movieId ")
     fun cekFavorite(movieId: Int): Flow<List<FavoriteMovieEntity>>
@@ -76,5 +77,14 @@ interface MovieDao {
 
     @Delete
     fun deleteCategory(categoryEntity: FavoriteListCategoryEntity): Int
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    fun addTempFavDelete(data: TempDeleteFav)
+
+    @Query("SELECT * FROM temp_delete_movie_fav")
+    fun getTempFavDelete(): List<TempDeleteFav>
+
+    @Delete
+    fun deleteTmpFavDelete(data: TempDeleteFav)
 
 }

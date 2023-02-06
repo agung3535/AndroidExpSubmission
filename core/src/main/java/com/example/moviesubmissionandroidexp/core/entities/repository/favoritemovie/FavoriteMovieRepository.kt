@@ -1,6 +1,9 @@
 package com.example.moviesubmissionandroidexp.core.entities.repository.favoritemovie
 
+import android.util.Log
+import com.example.moviesubmissionandroidexp.core.entities.Resource
 import com.example.moviesubmissionandroidexp.core.entities.source.local.datasource.favoritemovie.IFavoriteMovieLocalDataSource
+import com.example.moviesubmissionandroidexp.core.entities.source.local.entity.TempDeleteFav
 import com.example.moviesubmissionandroidexp.core.presentation.model.CastDomainModel
 import com.example.moviesubmissionandroidexp.core.presentation.model.FavoritListCategoryModel
 import com.example.moviesubmissionandroidexp.core.presentation.model.FavoriteCategoryWithPreviewModel
@@ -10,18 +13,30 @@ import com.example.moviesubmissionandroidexp.core.presentation.model.ReviewDomai
 import com.example.moviesubmissionandroidexp.core.utils.Mapper.toCastMovieEntity
 import com.example.moviesubmissionandroidexp.core.utils.Mapper.toDomain
 import com.example.moviesubmissionandroidexp.core.utils.Mapper.toEntity
+import com.example.moviesubmissionandroidexp.core.utils.Mapper.toFavDomain
 import com.example.moviesubmissionandroidexp.core.utils.Mapper.toReviewFavMovieEntity
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class FavoriteMovieRepository @Inject constructor(private val localDataSource: IFavoriteMovieLocalDataSource): IFavoriteMovieRepository {
-    override fun getFavoriteMovie(favId: Int): Flow<List<FavoriteMovieModel>> {
-        return localDataSource.getFavMovie(favId).map { data ->
-            data.map { it.toDomain() }
-        }
+class FavoriteMovieRepository @Inject constructor(
+    private val localDataSource: IFavoriteMovieLocalDataSource
+    ): IFavoriteMovieRepository {
+    override fun getFavoriteMovie(favId: Int): Flow<Resource<List<FavoriteMovieModel>>> {
+        return flow {
+            emit(Resource.Loading())
+            val data = localDataSource.getFavMovie(favId)
+            if (data.isNotEmpty()) {
+                emit(Resource.Success(data.map { it.toDomain() }))
+            }else {
+                emit(Resource.Success(emptyList()))
+            }
+        }.flowOn(Dispatchers.IO)
     }
 
     override fun getCategoryFavorite(): Flow<List<FavoriteCategoryWithPreviewModel>> {
@@ -63,41 +78,6 @@ class FavoriteMovieRepository @Inject constructor(private val localDataSource: I
         return localDataSource.addFavReviewMovie(inserValue)
     }
 
-//    override fun addFavoriteWithCastReview(
-//        data: FavoriteMovieModel,
-//        favCast: List<CastDomainModel>,
-//        review: List<ReviewDomainModel>
-//    ): Flow<Long> {
-//        val insertVal = data.toEntity()
-//        var castVal = ArrayList<CastFavMovieEntity>()
-//        var reviewVal = ArrayList<ReviewFavMovieEntity>()
-//        val data = localDataSource.addFavMovie(insertVal)
-//        if (data != null) {
-//            Log.d("dataaa","masuk tidak null ${data}")
-//            GlobalScope.launch {
-//                data.collect { favId ->
-//                    reviewVal.addAll(review.map {
-//                        it.toReviewFavMovieEntity(favId.toInt())
-//                    })
-//                    castVal.addAll(favCast.map {
-//                        it.toCastMovieEntity(favId.toInt())
-//                    })
-//                }
-//            }
-//            Log.d("dataaa","masuk cek ${}")
-//            if (castVal.size != 0) {
-//                Log.d("dataa","masuk cast tidak kosong = ${castVal.size}")
-//                localDataSource.addFavCastMovie(castVal)
-//            }
-//            return localDataSource.addFavReviewMovie(reviewVal)
-//        }else {
-//            Log.d("dataaa","masuk null ${data}")
-//            return flow<Long> {
-//                -1L
-//            }.flowOn(Dispatchers.IO)
-//        }
-//
-//    }
 
     override fun addCategoryFavorite(data: FavoritListCategoryModel): Flow<Long> {
         val insertVal = data.toEntity()
@@ -106,11 +86,32 @@ class FavoriteMovieRepository @Inject constructor(private val localDataSource: I
 
     override fun deleteFavorite(data: List<FavoriteMovieModel>): Flow<Int> {
         val deleteVal = data.map { it.toEntity() }
+        Log.d("dataaa","repo delete invoke $data dan $deleteVal")
         return localDataSource.deleteFavMovie(deleteVal)
     }
 
     override fun deleteCategoryFavorite(data: FavoritListCategoryModel): Flow<Int> {
         val deleteVal = data.toEntity()
         return localDataSource.deleteCategoryFavMovie(deleteVal)
+    }
+
+    override fun getTempFavDelete(): Flow<Resource<List<FavoriteMovieModel>>> {
+        return flow {
+            emit(Resource.Loading())
+            val data = localDataSource.getTempFavDelete()
+            if (data.isEmpty()) {
+                emit(Resource.Success(emptyList()))
+            }else {
+                emit(Resource.Success(data.map { it.toFavDomain() }))
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    override fun addTempFavDelete(data: TempDeleteFav): Flow<Int> {
+        return localDataSource.addTempFavDelete(data)
+    }
+
+    override fun deleteTempFavDelete(data: TempDeleteFav): Flow<Int> {
+        return localDataSource.deleteTempFavDelete(data)
     }
 }

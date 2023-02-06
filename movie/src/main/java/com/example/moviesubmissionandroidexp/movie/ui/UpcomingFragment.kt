@@ -35,7 +35,8 @@ class UpcomingFragment : Fragment() {
         factory
     }
 
-    lateinit var binding: FragmentUpcomingBinding
+    private var _binding: FragmentUpcomingBinding? = null
+    private val binding: FragmentUpcomingBinding get() = _binding!!
     lateinit var upcomingMovieAdapter: UpcomingMovieAdapter
 
     override fun onCreateView(
@@ -51,7 +52,7 @@ class UpcomingFragment : Fragment() {
                 )
             ).build()
             .inject(this)
-        binding = FragmentUpcomingBinding.inflate(layoutInflater, container, false)
+        _binding = FragmentUpcomingBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
@@ -115,6 +116,12 @@ class UpcomingFragment : Fragment() {
             binding.progressBar.visibility = View.GONE
         else
             binding.progressBar.visibility = View.VISIBLE
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding.recUpcoming.adapter = null
+        _binding = null
     }
 
 

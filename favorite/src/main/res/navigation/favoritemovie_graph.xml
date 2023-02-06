@@ -13,9 +13,7 @@
         <action
             android:id="@+id/action_favoriteFragment_to_listFavoriteFragment"
             app:destination="@id/listFavoriteFragment" />
-        <action
-            android:id="@+id/action_favoriteFragment_to_detailFavoriteFragment"
-            app:destination="@id/detailFavoriteFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/listFavoriteFragment"
@@ -39,6 +37,16 @@
         tools:layout="@layout/fragment_detail_favorite" >
         <argument
             android:name="movie_id"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_detailFavoriteFragment_to_listFavoriteFragment"
+            app:destination="@id/listFavoriteFragment"
+            app:popUpToInclusive="true" />
+        <argument
+            android:name="categoryTitle"
+            app:argType="string" />
+        <argument
+            android:name="categoryId"
             app:argType="integer" />
     </fragment>
 </navigation>

@@ -8,6 +8,5 @@
     <color name="text_color_title">#FF000000</color>
     <color name="text_color">#6C6A6A</color>
     <color name="backgorund_text">#eaeaea</color>
-    <color name="background_view">#FFFFFF</color>
     <color name="white">#FFFFFFFF</color>
 </resources>

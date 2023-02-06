@@ -1,5 +1,6 @@
 package com.example.moviesubmissionandroidexp.core.entities.source.remote.datasource
 
+import com.example.moviesubmissionandroidexp.core.BuildConfig
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -18,7 +19,7 @@ class MovieDetailDataSource @Inject constructor(
     private val apiService: ApiService
 ): IDetailMovieDataSource {
 
-    var apiKey = ApiKeysSource.apiKeys(1)
+    var apiKey = BuildConfig.TheMovieDBApi
 
     override fun getDetailMovie(movieId: String): Flow<ApiResponse<MovieDetail>> {
         return flow {

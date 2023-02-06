@@ -1,6 +1,7 @@
 package com.example.moviesubmissionandroidexp.favorite.ui
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -23,6 +24,8 @@ import com.example.moviesubmissionandroidexp.favorite.factory.FavoriteVMFactory
 import com.example.moviesubmissionandroidexp.favorite.viewmodel.addfavorite.AddFavoriteMovieViewmodel
 import com.example.moviesubmissionandroidexp.favorite.viewmodel.favoritelist.FavoriteListViewmodel
 import dagger.hilt.android.EntryPointAccessors
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -51,7 +54,7 @@ class DetailFavoriteFragment : Fragment() {
 
     private lateinit var reviewFavAdapter: ReviewFavAdapter
 
-    private var favMovie = ArrayList<FavoriteMovieModel>()
+    private var favMovie = arrayListOf<FavoriteMovieModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -78,15 +81,19 @@ class DetailFavoriteFragment : Fragment() {
 
     private fun fetchData() {
         args = DetailFavoriteFragmentArgs.fromBundle(requireArguments())
-        favoriteViewmodel.getDetailFavoriteMovie(args.movieId)
+
         favoriteViewmodel.cekFavorite(args.movieId)
     }
+
+
 
     private fun observeData() {
         lifecycleScope.launch {
             favoriteViewmodel.detailFavoriteData.collect { data ->
                 var favData = data
+
                 if (favData != null) {
+                    favMovie.add(favData.detailMovie)
                     castFavAdapter.submitList(favData.castMovie)
                     reviewFavAdapter.submitList(favData.reviewMovie)
                     binding.apply {
@@ -124,6 +131,7 @@ class DetailFavoriteFragment : Fragment() {
                 if (collectData != null){
                     binding.unFavBtn.visibility = View.VISIBLE
                     binding.favBtn.visibility = View.GONE
+                    favoriteViewmodel.getDetailFavoriteMovie(args.movieId)
                 }else {
                     binding.unFavBtn.visibility = View.GONE
                     binding.favBtn.visibility = View.VISIBLE
@@ -154,25 +162,20 @@ class DetailFavoriteFragment : Fragment() {
 
             unFavBtn.setOnClickListener {
                 lifecycleScope.launch {
-                    favoriteViewmodel.detailFavoriteData.value.let {
-                        if (it != null) {
-
-                            favMovie.add(it.detailMovie)
-                            deleteFavorite(favMovie)
-                            findNavController().popBackStack()
-                        }
-
-                    }
+                    val favData = favMovie
+                    deleteFavorite(favData)
+                    findNavController().popBackStack()
                 }
-
-
 
             }
         }
     }
 
     private fun deleteFavorite(data: List<FavoriteMovieModel>) {
-        addFavoriteViewmodel.deleteFavMovie(data)
+        addFavoriteViewmodel.addTempDelete(data.first())
+
+//        favMovie.clear()
+//        favMovie.clear()
     }
 
 

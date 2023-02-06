@@ -1,5 +1,6 @@
 package com.example.moviesubmissionandroidexp.core.domain.addfavoritemovie
 
+import com.example.moviesubmissionandroidexp.core.entities.source.local.entity.TempDeleteFav
 import com.example.moviesubmissionandroidexp.core.presentation.model.CastDomainModel
 import com.example.moviesubmissionandroidexp.core.presentation.model.FavoritListCategoryModel
 import com.example.moviesubmissionandroidexp.core.presentation.model.FavoriteMovieModel
@@ -13,4 +14,6 @@ interface IAddFavoriteMovieUsecase {
     fun addReviewFavoriteMovie(data: List<ReviewDomainModel>, fkId: Int): Flow<List<Long>>
     fun deleteFavorite(data: List<FavoriteMovieModel>): Flow<Int>
     fun deleteCategoryFavorite(data: FavoritListCategoryModel): Flow<Int>
+    fun addTempDelete(data: FavoriteMovieModel): Flow<Int>
+
 }

@@ -3,6 +3,7 @@ package com.example.moviesubmissionandroidexp.core.entities.source.remote.dataso
 import android.util.Log
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.RemoteMediator
+import com.example.moviesubmissionandroidexp.core.BuildConfig
 import com.example.moviesubmissionandroidexp.core.entities.source.local.entity.MovieEntity
 import com.example.moviesubmissionandroidexp.core.entities.source.local.room.MovieDatabase
 import com.example.moviesubmissionandroidexp.core.entities.source.remote.network.ApiResponse
@@ -22,7 +23,7 @@ class MoviePlayingDataSource @Inject constructor(
     private val db: MovieDatabase
 ): IMoviePlayingDataSource {
 
-    var apiKey = ApiKeysSource.apiKeys(1)
+    var apiKey = BuildConfig.TheMovieDBApi
 
     override suspend fun getPlayingNowMovie(): Flow<ApiResponse<List<MovieResource>>> {
         return flow {
