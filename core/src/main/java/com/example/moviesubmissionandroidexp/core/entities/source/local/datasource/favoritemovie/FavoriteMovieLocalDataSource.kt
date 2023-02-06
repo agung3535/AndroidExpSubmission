@@ -1,11 +1,13 @@
 package com.example.moviesubmissionandroidexp.core.entities.source.local.datasource.favoritemovie
 
+import android.util.Log
 import com.example.moviesubmissionandroidexp.core.entities.source.local.entity.CastFavMovieEntity
 import com.example.moviesubmissionandroidexp.core.entities.source.local.entity.FavoriteListCategoryEntity
 import com.example.moviesubmissionandroidexp.core.entities.source.local.entity.FavoriteMovieCastReviewEnt
 import com.example.moviesubmissionandroidexp.core.entities.source.local.entity.FavoriteMovieEntity
 import com.example.moviesubmissionandroidexp.core.entities.source.local.entity.OneToManyFavCategoryAndListMovieFavorite
 import com.example.moviesubmissionandroidexp.core.entities.source.local.entity.ReviewFavMovieEntity
+import com.example.moviesubmissionandroidexp.core.entities.source.local.entity.TempDeleteFav
 import com.example.moviesubmissionandroidexp.core.entities.source.local.room.MovieDao
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -16,7 +18,7 @@ import javax.inject.Singleton
 
 @Singleton
 class FavoriteMovieLocalDataSource @Inject constructor(private val movieDao: MovieDao): IFavoriteMovieLocalDataSource {
-    override fun getFavMovie(favId: Int): Flow<List<FavoriteMovieEntity>> {
+    override fun getFavMovie(favId: Int): List<FavoriteMovieEntity> {
         return movieDao.getFavoriteMovie(favId)
     }
 
@@ -60,6 +62,7 @@ class FavoriteMovieLocalDataSource @Inject constructor(private val movieDao: Mov
 
     override fun deleteFavMovie(data: List<FavoriteMovieEntity>): Flow<Int> {
         return flow<Int> {
+            Log.d("dataaa","deleted = $data")
             movieDao.deleteFavMovie(data)
         }.flowOn(Dispatchers.IO)
     }
@@ -67,6 +70,22 @@ class FavoriteMovieLocalDataSource @Inject constructor(private val movieDao: Mov
     override fun deleteCategoryFavMovie(data: FavoriteListCategoryEntity): Flow<Int> {
         return flow<Int> {
             movieDao.deleteCategory(data)
+        }.flowOn(Dispatchers.IO)
+    }
+
+    override fun getTempFavDelete(): List<TempDeleteFav> {
+        return movieDao.getTempFavDelete()
+    }
+
+    override fun addTempFavDelete(data: TempDeleteFav): Flow<Int> {
+        return flow<Int> {
+            movieDao.addTempFavDelete(data)
+        }.flowOn(Dispatchers.IO)
+    }
+
+    override fun deleteTempFavDelete(data: TempDeleteFav): Flow<Int> {
+        return flow<Int> {
+            movieDao.deleteTmpFavDelete(data)
         }.flowOn(Dispatchers.IO)
     }
 }
